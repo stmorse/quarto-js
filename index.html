@@ -11,20 +11,41 @@
     }
 
     body {
-      color : #000000;
-      background-color : #fff;
+      color: #000000;
+      background-color: #fff;
       font-family: 'PT Sans', sans-serif;
-      font-size : 14px;
-      cursor : default;
+      font-size: 14px;
+      cursor: default;
+    }
+
+    .outside {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 10px;
+      box-sizing: border-box; 
+    }
+
+    /* For devices larger than 400px */
+    @media (min-width: 400px) {
+      .outside {
+        width: 90%;
+        padding: 0; }
+    }
+
+    .text {
+      padding: 0 0 2em 0;
+      text-align: left;
     }
 
     /* https://stackoverflow.com/questions/16348031/disable-scrolling-when-touch-moving-certain-element */
-    .lock-screen {
+    /*.lock-screen {
       height: 100%;
       overflow: hidden;
       width: 100%;
       position: fixed;
-    }
+    } */
 
     .container {
       padding: 10px;
@@ -32,6 +53,8 @@
 
     .main {
       position: relative;
+      width: 100%;
+      margin: 0 auto;
     }
 
     .button {
@@ -42,7 +65,7 @@
       border: 1.5px solid black;
       text-align: center;
       font-size: 10px;
-      font-family: Courier, sans-serif;
+      font-family: 'PT Sans', sans-serif;
       cursor: pointer;
     }
     .button:hover {
@@ -75,7 +98,7 @@
       border: none;
       text-align: left;
       font-size: 12px; 
-      font-family: Courier, sans-serif;   
+      font-family: 'PT Sans', sans-serif;   
     }
   </style>
   
@@ -87,7 +110,14 @@
   <script src="quarto.js" type="text/javascript"></script>
 
 </head>
-<body class="lock-screen">
+<body class="outside">
+  <p class="text"></p>
+  <h1 class="text">Quarto</h1>
+
+  <p class="text">Drag the piece in "limbo" onto the board. Then drag one of the remaining pieces into limbo for the computer.  When you're done, click "Done".</p>  
+
+  <p class="text">Your goal is to get four pieces in a row that share at least one trait (large/small, solid/hollow, red/green, circle/square).</p>
+
     <div class="container">
       <div class="main">
         <canvas id="c"></canvas>
