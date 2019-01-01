@@ -682,9 +682,7 @@ $(document).ready(function () {
   // UI SETUP
   ////
 
-  $('.container').on('touchmove', 
-    function(e) { e.preventDefault(); }, 
-    { passive:false });
+  $('body').bind('touchmove', function(e){e.preventDefault()})
 
   // set css elements
   $('.infobar').css({
