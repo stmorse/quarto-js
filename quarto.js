@@ -4,7 +4,7 @@
 
 var canvas;
 
-var gridsize = 50;
+var gridsize = 70;
 var offset = 5;     // space at edge of boards
 
 // absolute positioning (modify for mobile?)
@@ -395,7 +395,7 @@ function buildTree(passedPiece, spot, nextPiece, boardstate, poolstate, player, 
 
 function computeMiniMax( node ) {
   if (node.isLeaf) {
-      if ( node.isQuarto)
+      if (node.isQuarto)
           return (node.player==COMP_TURN) ? 1 : -1;
       else
           return 0;
@@ -405,10 +405,12 @@ function computeMiniMax( node ) {
   for (ci=0;ci<node.children.length;ci++) {
     tans = computeMiniMax( node.children[ci] );
     if ( node.player == COMP_TURN ) {
-      ans = Math.min( ans, tans );
+      // ans = Math.min( ans, tans );
+      ans = Math.max( ans, tans );
     }
     else {
-      ans = Math.max( ans, tans );
+      // ans = Math.max( ans, tans );
+      ans = Math.min( ans, tans );
     }
   }
   
@@ -525,6 +527,8 @@ function getSimpleMove() {
 function doComputerMove() {
   var numspots = getRemainingSpots(board).length;
 
+  console.log('remaining spots:', numspots)
+
   // getMinimaxMove(depth)
   // depth = 0 : similar to SimpleMove
   // depth = 1 : makes sure not passing a winner to user
@@ -532,9 +536,9 @@ function doComputerMove() {
   if (numspots > 14) {
     res = getSimpleMove();  
   } else if (numspots <= 14 && numspots > 9) {
-    res = getMinimaxMove(2);
-  } else {
     res = getMinimaxMove(4);
+  } else {
+    res = getMinimaxMove(5);
   }
   
   console.log('res:', res);
@@ -584,7 +588,7 @@ function doComputerMove() {
 //   0/1   0/1   0/1   0/1
 
 var poffset_lg = 4;   // distance from top left of square
-var poffset_sm = 10;
+var poffset_sm = Math.floor(gridsize / 5);
 var hstroke = 6;      // thickness of stroke for hollow pieces
 // var color1 = '#f00';
 // var color2 = '#00f';
@@ -715,9 +719,11 @@ $(document).ready(function () {
     selectable: false, fill: 'rgba(0,0,0,0)',
     stroke: 'black'
   });
-  var board_grid_path = 'M 0 0 H 200 V 200 H 0 V 0 Z \
-                         M 0 50 H 200 Z M 0 100 H 200 M 0 150 H 200 Z \
-                         M 50 0 V 200 Z M 100 0 V 200 Z M 150 0 V 200 Z'
+  var board_grid_path = 'M 0 0 H ' + 4*gridsize + ' V ' + 4*gridsize + ' H 0 V 0 Z \
+                         M 0 ' + gridsize + ' H ' + 4*gridsize + ' Z M 0 ' + 2*gridsize + ' H \
+                          ' + 4*gridsize + ' M 0 ' + 3*gridsize + ' H ' + 4*gridsize + ' Z \
+                         M ' + gridsize + ' 0 V ' + 4*gridsize + ' Z M ' + 2*gridsize + ' 0 V \
+                          ' + 4*gridsize + ' Z M ' + 3*gridsize + ' 0 V ' + 4*gridsize + ' Z'
   var board_grid_img = new fabric.Path(board_grid_path);
   board_grid_img.set({
     top: board_y0 + offset, left: board_x0 + offset,
@@ -733,7 +739,6 @@ $(document).ready(function () {
   for (i=0; i<numpieces; i++) {
     canvas.add(pieces[i]);
   }
-
 
   /////
   // PLAY/PASS HANDLING
