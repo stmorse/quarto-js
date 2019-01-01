@@ -685,7 +685,7 @@ $(document).ready(function () {
   $(document.body).on("touchmove", function(event) {
     event.preventDefault();
     event.stopPropagation();
-  });
+  }, {passive: false});
 
   // set css elements
   $('.infobar').css({
