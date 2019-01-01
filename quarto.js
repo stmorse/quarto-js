@@ -677,7 +677,6 @@ for (i=0; i<numpieces; i++) {
 }
 
 
-
 $(document).ready(function () {
   /////
   // UI SETUP

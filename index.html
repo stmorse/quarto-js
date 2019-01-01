@@ -39,16 +39,10 @@
       text-align: left;
     }
 
-    /* https://stackoverflow.com/questions/16348031/disable-scrolling-when-touch-moving-certain-element */
-    .lock-screen {
-      height: 100%;
-      overflow: hidden;
-      width: 100%;
-      position: fixed;
-    }
-
     .container {
       padding: 10px;
+      max-height: 400px;
+      overflow: auto;
     }
 
     .main {
@@ -116,13 +110,13 @@
 
   <p class="text">Drag the piece in "limbo" onto the board. Then drag one of the remaining pieces into limbo for the computer.  When you're done, click "Done".</p>  
 
-  <p class="text">Your goal is to get four pieces in a row that share at least one trait (large/small, solid/hollow, red/green, circle/square).</p>
+  <p class="text">Your <b>goal</b> is to get four pieces in a row that share at least one trait (large/small, solid/hollow, red/green, circle/square).</p>
 
     <div class="container">
       <div class="main">
         <canvas id="c"></canvas>
         <div class="infobar" id="info"></div>
-        <div class="button hvr-grow" id="endturn">Done</div>
+        <div class="button hvr-grow" id="endturn"><b>Done</b></div>
       </div>
     </div>
 </body>
