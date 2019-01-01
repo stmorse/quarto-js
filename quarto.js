@@ -682,6 +682,10 @@ $(document).ready(function () {
   // UI SETUP
   ////
 
+  $('.container').on('touchmove', 
+    function(e) { e.preventDefault(); }, 
+    { passive:false });
+
   // set css elements
   $('.infobar').css({
     top: pool_height + offset, left: offset*3,
